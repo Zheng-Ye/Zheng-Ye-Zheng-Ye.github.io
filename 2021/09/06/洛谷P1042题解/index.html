@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Java Web">
+    <meta name="keywords" content="Java Web">
     <meta name="description" content="胸中一点浩然气，天地千里快哉风">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 風</title>
+    <title>風</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -247,12 +247,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -384,7 +384,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-05
+                    2021-09-06
                 </div>
                 
 
@@ -408,19 +408,59 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <pre class="line-numbers language-none"><code class="language-none">title: 洛谷P1042题解
+date: 2021-09-06 09:25:00<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="洛谷P1042题解"><a href="#洛谷P1042题解" class="headerlink" title="洛谷P1042题解"></a>洛谷P1042题解</h1><p>第一篇博客先拿这篇<del>水一下</del></p>
+<p>我的方法其实主要是优化了luogu里面两个高赞题解，第一个的缺点在于没有计数器，也导致了ta在处理那种“残局”–就是那种结尾前面不是11分制也不是21分制的比分，用的是</p>
+<pre class="line-numbers language-none"><code class="language-none">if(win[i]&#x3D;&#x3D;0)&#123;cout&lt;&lt;w&lt;&lt;&quot;:&quot;&lt;&lt;l&lt;&lt;endl&lt;&lt;endl;break;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>而第二个的缺点在于=11/21和&gt;=11/21的情况没有合并，导致不必要的分类讨论；</p>
+<p>ACcode：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
+using namespace std<span class="token punctuation">;</span>
+<span class="token keyword">char</span> ch<span class="token punctuation">,</span>c<span class="token punctuation">[</span><span class="token number">62505</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> w<span class="token punctuation">,</span>l<span class="token punctuation">,</span>cnt<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>cin<span class="token operator">>></span>ch<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+       <span class="token keyword">if</span><span class="token punctuation">(</span>ch<span class="token operator">==</span><span class="token string">'E'</span><span class="token punctuation">)</span>
+       <span class="token keyword">break</span><span class="token punctuation">;</span>
+       <span class="token keyword">else</span> c<span class="token punctuation">[</span><span class="token operator">++</span>cnt<span class="token punctuation">]</span><span class="token operator">=</span>ch<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>cnt<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span><span class="token string">'W'</span><span class="token punctuation">)</span> w<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span><span class="token string">'L'</span><span class="token punctuation">)</span> l<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>w<span class="token operator">-</span>l<span class="token punctuation">)</span><span class="token operator">>=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token comment">//分差大于等于2</span>
+        <span class="token punctuation">&#123;</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>w<span class="token operator">>=</span><span class="token number">11</span><span class="token operator">||</span>l<span class="token operator">>=</span><span class="token number">11</span><span class="token punctuation">)</span><span class="token comment">//一方分数大于等于11</span>
+        	<span class="token punctuation">&#123;</span>
+        	  cout<span class="token operator">&lt;&lt;</span>w<span class="token operator">&lt;&lt;</span><span class="token string">":"</span><span class="token operator">&lt;&lt;</span>l<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+        	  w<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>l<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        	<span class="token punctuation">&#125;</span>  
+        <span class="token punctuation">&#125;</span> 
+    <span class="token punctuation">&#125;</span>
+    cout<span class="token operator">&lt;&lt;</span>w<span class="token operator">&lt;&lt;</span><span class="token string">":"</span><span class="token operator">&lt;&lt;</span>l<span class="token operator">&lt;&lt;</span>endl<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+    w<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>l<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>cnt<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span><span class="token string">'W'</span><span class="token punctuation">)</span> w<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span><span class="token string">'L'</span><span class="token punctuation">)</span> l<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">abs</span><span class="token punctuation">(</span>w<span class="token operator">-</span>l<span class="token punctuation">)</span><span class="token operator">>=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token comment">//分差大于等于2</span>
+        <span class="token punctuation">&#123;</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>w<span class="token operator">>=</span><span class="token number">21</span><span class="token operator">||</span>l<span class="token operator">>=</span><span class="token number">21</span><span class="token punctuation">)</span><span class="token comment">//一方分数大于等于21</span>
+         	<span class="token punctuation">&#123;</span>
+         	 cout<span class="token operator">&lt;&lt;</span>w<span class="token operator">&lt;&lt;</span><span class="token string">":"</span><span class="token operator">&lt;&lt;</span>l<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+         	 w<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>l<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        	 <span class="token punctuation">&#125;</span>  
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+     cout<span class="token operator">&lt;&lt;</span>w<span class="token operator">&lt;&lt;</span><span class="token string">":"</span><span class="token operator">&lt;&lt;</span>l<span class="token punctuation">;</span>
+     <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"pause"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -447,7 +487,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Zheng-Ye.github.io/2021/09/05/hello-world/">http://Zheng-Ye.github.io/2021/09/05/hello-world/</a>
+                    <a href="http://Zheng-Ye.github.io/2021/09/06/%E6%B4%9B%E8%B0%B7P1042%E9%A2%98%E8%A7%A3/">http://Zheng-Ye.github.io/2021/09/06/%E6%B4%9B%E8%B0%B7P1042%E9%A2%98%E8%A7%A3/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -654,9 +694,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/09/06/%E6%B4%9B%E8%B0%B7P1042%E9%A2%98%E8%A7%A3/">
                     <div class="card-image">
@@ -674,9 +715,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -685,6 +726,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -692,7 +734,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2021/09/05/hello-world/">
@@ -722,7 +764,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
