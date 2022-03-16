@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="最短路径之Dijkstra算法, Java Web">
+    <meta name="keywords" content="蓝桥杯笔记Day1, Java Web">
     <meta name="description" content="胸中一点浩然气，天地千里快哉风">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>最短路径之Dijkstra算法 | 風</title>
+    <title>蓝桥杯笔记Day1 | 風</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -247,12 +247,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">最短路径之Dijkstra算法</h1>
+                    <h1 class="description center-align post-title">蓝桥杯笔记Day1</h1>
                 </div>
             </div>
         </div>
@@ -384,7 +384,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-06
+                    2022-03-16
                 </div>
                 
 
@@ -408,87 +408,43 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h1><h4 id="算法特点："><a href="#算法特点：" class="headerlink" title="算法特点："></a>算法特点：</h4><p>迪科斯彻算法使用了广度优先搜索解决赋权有向图或者无向图的单源最短路径问题，算法最终得到一个最短路径树。该算法常用于路由算法或者作为其他图算法的一个子模块。</p>
-<h4 id="算法的思路："><a href="#算法的思路：" class="headerlink" title="算法的思路："></a>算法的思路：</h4><p>Dijkstra算法采用的是一种贪心的策略，声明一个数组dis来保存源点到各个顶点的最短距离和一个保存已经找到了最短路径的顶点的集合：T，初始时，原点 s 的路径权重被赋为 0 （dis[s] = 0）。若对于顶点 s 存在能直接到达的边（s,m），则把dis[m]设为w（s, m）,同时把所有其他（s不能直接到达的）顶点的路径长度设为无穷大。初始时，集合T只有顶点s。<br>然后，从dis数组选择最小值，则该值就是源点s到该值对应的顶点的最短路径，并且把该点加入到T中，OK，此时完成一个顶点，<br>然后，我们需要看看新加入的顶点是否可以到达其他顶点并且看看通过该顶点到达其他点的路径长度是否比源点直接到达短，如果是，那么就替换这些顶点在dis中的值。<br>然后，又从dis中找出最小值，重复上述动作，直到T中包含了图的所有顶点。</p>
-<h4 id="Dijkstra算法示例演示："><a href="#Dijkstra算法示例演示：" class="headerlink" title="Dijkstra算法示例演示："></a>Dijkstra算法示例演示：</h4><p>求下图里面从顶点v1到其他各个顶点的最短路径</p>
-<p><img src="https://gitee.com/zheng-ye/pics/raw/master/img/202203062051570.png" alt="这里写图片描述"></p>
-<p>首先第一步，我们先声明一个dis数组，该数组初始化的值为：</p>
-<p><img src="https://gitee.com/zheng-ye/pics/raw/master/img/202203062051029.png" alt="这里写图片描述"></p>
-<p>我们的顶点集T的初始化为：T={v1}</p>
-<p>既然是求 v1顶点到其余各个顶点的最短路程，那就先找一个离 1 号顶点最近的顶点。通过数组 dis 可知当前离v1顶点最近是 v3顶点。当选择了 2 号顶点后，dis[2]（下标从0开始）的值就已经从“估计值”变为了“确定值”，即 v1顶点到 v3顶点的最短路程就是当前 dis[2]值。将V3加入到T中。<br>为什么呢？因为目前离 v1顶点最近的是 v3顶点，并且这个图所有的边都是正数，那么肯定不可能通过第三个顶点中转，使得 v1顶点到 v3顶点的路程进一步缩短了。因为 v1顶点到其它顶点的路程肯定没有 v1到 v3顶点短.</p>
-<p>OK，既然确定了一个顶点的最短路径，下面我们就要根据这个新入的顶点V3会有出度，发现以v3 为弧尾的有： &lt; v3,v4 &gt;,那么我们看看路径：v1–v3–v4的长度是否比v1–v4短，其实这个已经是很明显的了，因为dis[3]代表的就是v1–v4的长度为无穷大，而v1–v3–v4的长度为：10+50=60，所以更新dis[3]的值,得到如下结果：<br><img src="https://gitee.com/zheng-ye/pics/raw/master/img/202203062052719.png" alt="这里写图片描述"></p>
-<p>因此 dis[3]要更新为 60。这个过程有个专业术语叫做“松弛”。即 v1顶点到 v4顶点的路程即 dis[3]，通过 &lt; v3,v4&gt; 这条边松弛成功。这便是 Dijkstra 算法的主要思想：通过“边”来松弛v1顶点到其余各个顶点的路程。</p>
-<p>然后，我们又从除dis[2]和dis[0]外的其他值中寻找最小值，发现dis[4]的值最小，通过之前是解释的原理，可以知道v1到v5的最短距离就是dis[4]的值，然后，我们把v5加入到集合T中，然后，考虑v5的出度是否会影响我们的数组dis的值，v5有两条出度：&lt; v5,v4&gt;和 &lt; v5,v6&gt;,然后我们发现：v1–v5–v4的长度为：50，而dis[3]的值为60，所以我们要更新dis[3]的值.另外，v1-v5-v6的长度为：90，而dis[5]为100，所以我们需要更新dis[5]的值。更新后的dis数组如下图：<br>然后，继续从dis中选择未确定的顶点的值中选择一个最小的值，发现dis[3]的值是最小的，所以把v4加入到集合T中，此时集合T={v1,v3,v5,v4},然后，考虑v4的出度是否会影响我们的数组dis的值，v4有一条出度：&lt; v4,v6&gt;,然后我们发现：v1–v5–v4–v6的长度为：60，而dis[5]的值为90，所以我们要更新dis[5]的值，更新后的dis数组如下图：</p>
-<p><img src="https://gitee.com/zheng-ye/pics/raw/master/img/202203062052067.png" alt="这里写图片描述"></p>
-<p>然后，我们使用同样原理，分别确定了v6和v2的最短路径，最后dis的数组的值如下：</p>
-<p><img src="https://gitee.com/zheng-ye/pics/raw/master/img/202203062055253.png" alt="这里写图片描述"></p>
-<p>因此，从图中，我们可以发现v1-v2的值为：∞，代表没有路径从v1到达v2。所以我们得到的最后的结果为：</p>
-<p><img src="https://gitee.com/zheng-ye/pics/raw/master/img/202203062055759.png" alt="这里写图片描述"></p>
-<pre class="line-numbers language-none"><code class="language-none">起点  终点    最短路径    长度
-v1    v2     无          ∞    
-      v3     &#123;v1,v3&#125;    10
-      v4     &#123;v1,v5,v4&#125;  50
-      v5     &#123;v1,v5&#125;    30
-      v6     &#123;v1，v5,v4,v6&#125; 60<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h1 id="Java-parseInt-方法"><a href="#Java-parseInt-方法" class="headerlink" title="Java parseInt() 方法"></a>Java parseInt() 方法</h1><p>parseInt() 方法用于将字符串参数作为有符号的十进制整数进行解析。</p>
+<p>如果方法有两个参数， 使用第二个参数指定的基数，将字符串参数解析为有符号的整数。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>所有 Number 派生类 parseInt 方法格式类似如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token class-name">String</span> s<span class="token punctuation">)</span>
 
+<span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token class-name">String</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span> radix<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span> args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> x <span class="token operator">=</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">"9"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> c <span class="token operator">=</span> <span class="token class-name">Double</span><span class="token punctuation">.</span><span class="token function">parseDouble</span><span class="token punctuation">(</span><span class="token string">"5"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">"444"</span><span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h4 id="Java实现：-2"><a href="#Java实现：-2" class="headerlink" title="Java实现：[2]"></a>Java实现：<sup>[2]</sup></h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token class-name">Twelve</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Dijkstra</span> <span class="token punctuation">&#123;</span>
-<span class="token comment">/*   参数adjMatrix:为图的权重矩阵，权值为-1的两个顶点表示不能直接相连
-    函数功能：返回顶点0到其它所有顶点的最短距离，其中顶点0到顶点0的最短距离为0
- */</span>
-	<span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getShortestPaths</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> adjMatrix<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		<span class="token keyword">int</span> result<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span>adjMatrix<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//用于存放顶点0到其它顶点的最短距离</span>
-		<span class="token keyword">boolean</span> used<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token keyword">boolean</span><span class="token punctuation">[</span>adjMatrix<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//用于判断顶点是否被遍历</span>
-		used<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token comment">//表示顶点0已被遍历</span>
-		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>adjMatrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-			result<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>adjMatrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-			used<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span>
-		<span class="token punctuation">&#125;</span>
-		
-		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>adjMatrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-			<span class="token keyword">int</span> min<span class="token operator">=</span><span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">;</span> <span class="token comment">//用于暂时存放顶点0到i的最短距离，初始化为Integer型最大值</span>
-			<span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>adjMatrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-				<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>used<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&amp;&amp;</span>result<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span><span class="token operator">&amp;&amp;</span>min<span class="token operator">></span>result<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token comment">//找到顶点0到其它顶点中距离最小的一个顶点</span>
-					min<span class="token operator">=</span>result<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-					k<span class="token operator">=</span>j<span class="token punctuation">;</span>
-				<span class="token punctuation">&#125;</span>
-			<span class="token punctuation">&#125;</span>
-			used<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span><span class="token comment">//将距离最小的顶点，记作已遍历</span>
-			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>adjMatrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token comment">//然后，将顶点0与其他顶点的距离与加入中间顶点K之后的距离进行比较</span>
-				<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>used<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token comment">//当顶点j未遍历时</span>
-					<span class="token comment">//首先，顶点K到顶点j要能通行；这时，当顶点0到j的距离大于0到k再到j的距离或者顶点0无法直接到达j</span>
-					<span class="token keyword">if</span><span class="token punctuation">(</span>adjMatrix<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">!=</span><span class="token operator">-</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">></span>min<span class="token operator">+</span>adjMatrix<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">||</span>result<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">==</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-						result<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>min<span class="token operator">+</span>adjMatrix<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-				<span class="token punctuation">&#125;</span>
-			<span class="token punctuation">&#125;</span>		
-		<span class="token punctuation">&#125;</span>			
-		<span class="token keyword">return</span> result<span class="token punctuation">;</span>	
-	<span class="token punctuation">&#125;</span>
+<p>编译以上程序，输出结果为：</p>
+<pre class="line-numbers language-none"><code class="language-none">9
+5.0
+1092<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="蓝桥杯-基础练习-十六进制转十进制"><a href="#蓝桥杯-基础练习-十六进制转十进制" class="headerlink" title="蓝桥杯 基础练习 十六进制转十进制"></a>蓝桥杯 基础练习 十六进制转十进制</h2><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>从键盘输入一个不超过8位的正的十六进制数字符串，将它转换为正的十进制数后输出。<br>注：十六进制数中的10~15分别用大写的英文字母A、B、C、D、E、F表示。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Scanner</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">&#123;</span>
 	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-		<span class="token class-name">Dijkstra</span> testDijkstra<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Dijkstra</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> adjMatrix<span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-                <span class="token punctuation">&#123;</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-                <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-                <span class="token punctuation">&#123;</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-                <span class="token punctuation">&#123;</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-                <span class="token punctuation">&#123;</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-		<span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> result<span class="token operator">=</span>testDijkstra<span class="token punctuation">.</span><span class="token function">getShortestPaths</span><span class="token punctuation">(</span>adjMatrix<span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"顶点0到图中所有顶点之间的最短距离为："</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>result<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-			<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">+</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token punctuation">&#125;</span>
+		<span class="token class-name">Scanner</span> sc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">String</span> s <span class="token operator">=</span> sc<span class="token punctuation">.</span><span class="token function">nextLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">long</span> num <span class="token operator">=</span> <span class="token class-name">Long</span><span class="token punctuation">.</span><span class="token function">parseLong</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h4><p>[1] <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35644234/article/details/60870719">(61条消息) 最短路径问题—Dijkstra算法详解_William-CSDN博客_dijkstra</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/a1439775520/article/details/96903328?ops_request_misc=%7B%22request_id%22:%22164653795916780274162876%22,%22scm%22:%2220140713.130102334..%22%7D&request_id=164653795916780274162876&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-96903328.es_vector_control_group&utm_term=dijkstra%E7%AE%97%E6%B3%95java%E5%AE%9E%E7%8E%B0&spm=1018.2226.3001.4187">(61条消息) java实现Dijkstra算法_南 墙-CSDN博客_迪杰斯特拉算法java实现</a></p>
 
                 
             </div>
@@ -515,7 +471,7 @@ v1    v2     无          ∞
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Zheng-Ye.github.io/2022/03/06/Dijkstra%E7%AE%97%E6%B3%95/">http://Zheng-Ye.github.io/2022/03/06/Dijkstra%E7%AE%97%E6%B3%95/</a>
+                    <a href="http://Zheng-Ye.github.io/2022/03/16/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AC%94%E8%AE%B0Day1/">http://Zheng-Ye.github.io/2022/03/16/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AC%94%E8%AE%B0Day1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -722,9 +678,10 @@ v1    v2     无          ∞
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/16/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AC%94%E8%AE%B0Day1/">
                     <div class="card-image">
@@ -742,9 +699,9 @@ v1    v2     无          ∞
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -753,6 +710,7 @@ v1    v2     无          ∞
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -763,13 +721,13 @@ v1    v2     无          ∞
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/01/PicGo-gitee/">
+                <a href="/2022/03/06/Dijkstra%E7%AE%97%E6%B3%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="PicGo+gitee+Typora图床配置">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="最短路径之Dijkstra算法">
                         
-                        <span class="card-title">PicGo+gitee+Typora图床配置</span>
+                        <span class="card-title">最短路径之Dijkstra算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -780,7 +738,7 @@ v1    v2     无          ∞
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-06
                             </span>
                         <span class="publish-author">
                             
